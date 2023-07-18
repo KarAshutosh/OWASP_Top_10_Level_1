@@ -3,7 +3,6 @@ const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
 
-// No explicit trust boundaries defined
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('public'));
 
@@ -19,7 +18,7 @@ app.post('/login', (req, res) => {
   console.log(username)
   console.log(password)
 
-  // Simulating authentication logic
+  // Default Passwords
   if (username == 'admin' && password == 'defaultPassword') {
     res.sendFile(path.join(__dirname, 'admin.html'));
   } else {
@@ -33,6 +32,7 @@ app.use((req, res, next) => {
   next();
 });
 
+// Improper error handelling 
 app.use((err, req, res, next) => {
   console.error();
   res.send(err);
