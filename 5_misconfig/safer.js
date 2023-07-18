@@ -3,7 +3,6 @@ const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
 
-// Apply appropriate security configurations
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));

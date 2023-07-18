@@ -3,17 +3,15 @@ const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
 
-// Misconfiguration 1: No explicit trust boundaries defined
+// No explicit trust boundaries defined
 app.use(bodyParser.urlencoded({ extended: false }));
-
-// Misconfiguration 2: Directory traversal vulnerability
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'login.html'));
 });
 
-// Misconfiguration 3: Lack of input validation and sanitization and rate limit
+// Lack of input validation and sanitization and rate limit
 app.post('/login', (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
@@ -29,7 +27,7 @@ app.post('/login', (req, res) => {
   }
 });
 
-// Misconfiguration 4: Lack of secure headers
+// Lack of secure headers
 app.use((req, res, next) => {
   res.setHeader('X-XSS-Protection', '0');
   next();
