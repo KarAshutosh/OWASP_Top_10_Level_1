@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
+const {sanitizeAndValidateInput} = require('./safe_input_v1')
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('public'));
@@ -13,7 +14,7 @@ app.get('/', (req, res) => {
 // Lack of input validation and sanitization and rate limit
 app.post('/login', (req, res) => {
   const username = req.body.username;
-  const password = req.body.password;
+  const password = sanitizeAndValidateInput(req.body.password);
 
   console.log(username)
   console.log(password)

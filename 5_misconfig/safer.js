@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
-
+const {sanitizeAndValidateInput} = require('./safe_input_v2')
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
@@ -11,26 +11,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'login.html'));
 });
 
-// Remove potentially malicious characters
 
-function sanitizeAndValidateInput(input) {
-
-  const sanitizedInput = input.replace(/[<>&'"={}]/g, '');
-
-  // Basic input validation
-  if (typeof sanitizedInput !== 'string') {
-    throw new Error('Invalid input type');
-  }
-
-  // Length validation
-  const minLength = 4;
-  const maxLength = 40;
-  if (input.length < minLength || input.length > maxLength) {
-    throw new Error(`Input length must be between ${minLength} and ${maxLength} characters`);
-  }
-  
-  return sanitizedInput;
-}
 
 // Apply rate limiting
 var loginAttempts = [];
@@ -55,6 +36,8 @@ function failedAttempts(username){
 // Apply input validation, sanitization and rate limit
 
 app.post('/login', (req, res) => {
+  
+  // Remove potentially malicious characters
   const username = sanitizeAndValidateInput(req.body.username);
   const password = sanitizeAndValidateInput(req.body.password);
 
