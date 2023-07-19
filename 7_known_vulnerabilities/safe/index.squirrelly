@@ -1,0 +1,8 @@
+Hi {{it.user}}!
+<ul>
+{{@each(it.user.friends) => friend}}
+  <li>{{friend.first | capitalize}} {{friend.last}}</li>
+{{/each}}
+</ul>
+Here are your badges:
+{{it.badges | join(", ") | capitalize}}
