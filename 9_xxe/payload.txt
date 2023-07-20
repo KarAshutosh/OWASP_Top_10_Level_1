@@ -1,0 +1,8 @@
+<!--?xml version="1.0" ?-->
+<!DOCTYPE replace [
+  <!ENTITY ent SYSTEM "file:///secrets.txt">
+]>
+<userInfo>
+  <firstName>John</firstName>
+  <lastName>&ent;</lastName>
+</userInfo>
