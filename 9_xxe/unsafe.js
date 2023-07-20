@@ -1,3 +1,5 @@
+// Risks: sensitive information disclosure, server-side request forgery (SSRF), and remote code execution
+
 const express = require('express');
 const libxmljs = require('libxmljs');
 const bodyParser = require('body-parser');

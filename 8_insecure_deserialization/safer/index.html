@@ -1,0 +1,28 @@
+<!-- Your HTML code with the textarea -->
+<textarea id="yamlData"></textarea>
+<button onclick="sendYamlData()">Send YAML Data</button>
+
+<!-- Your JavaScript code -->
+<script>
+    function sendYamlData() {
+        const textarea = document.getElementById('yamlData');
+        const x = textarea.value.replace(/\\n/g, '\n'); // Convert \\n to actual line breaks
+
+        // Sending the data to the server using fetch
+        fetch('/process-yaml', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'text/plain',
+        },
+        body: x,
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            // Handle the response from the server here
+            console.log('Server response:', data);
+        })
+        .catch((error) => {
+            console.error('Error sending data:', error);
+        });
+    }
+</script>
