@@ -1,5 +1,3 @@
-// unsafe.js (Node.js)
-
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
@@ -34,6 +32,7 @@ app.post('/login', (req, res) => {
     } else {
         res.send('Invalid username or password');
     }
+    
 });
 
 app.get('/logout', (req, res) => {

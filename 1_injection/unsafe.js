@@ -38,7 +38,12 @@ app.post('/login', (req, res) => {
     const password = req.body.password;
 
     // Construct the SQL query (unsafe)
-    const query = `SELECT * FROM login_credentials WHERE username = '${username}' AND password = '${password}'`;
+
+    
+    const query = `SELECT * \
+    FROM login_credentials \
+    WHERE username = '${username}' \
+    AND password = '${password}'`;
 
     // Execute the query
     db.query(query, (err, results) => {

@@ -1,5 +1,3 @@
-// safer.js (Node.js)
-
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
@@ -13,7 +11,6 @@ app.use(session({
   saveUninitialized: false,
 }));
 
-// Middleware to check if the user is authenticated
 const isAuthenticated = (req, res, next) => {
   if (req.session && req.session.authenticated) {
     return next();
@@ -32,7 +29,6 @@ app.get('/login', (req, res) => {
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
 
-  // Insecure authentication logic (just for demonstration)
   if (username === 'admin' && password === 'password') {
     req.session.authenticated = true;
     res.redirect('/');
